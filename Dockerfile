@@ -36,6 +36,8 @@ RUN pip3 install --upgrade pip \
 # Copy app files
 COPY . /opt/sherlock/
 
+RUN rm /opt/sherlock/sherlock_rest_service/sherlock
+
 # Move sherlock files into the Django project
 RUN mv /opt/sherlock/sherlock /opt/sherlock/sherlock_rest_service
 
