@@ -1,8 +1,8 @@
-# sherlock-django
+# sherlock-rest
 
 A Django JSON REST API for [Sherlock 1.4.3](https://github.com/sherlock-project/sherlock).
 
-<a href="https://render.com/deploy?repo=https://github.com/turian/sherlock-django.git">
+<a href="https://render.com/deploy?repo=https://github.com/turian/sherlock-rest.git">
 <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render" />
 </a>
 
@@ -42,7 +42,12 @@ You can now query it as follows:
 curl -X POST -H "Content-Type: application/json" -d '{"usernames": ["user1", "user2"], "site": ["reddit", "twitter"]}' http://localhost:8000/api/v1/sherlock/
 ```
 
-Those are the only parameters supported. We are open to PRs adding other arguments (e.g. proxies) that sherlock supports.
+Those are the only parameters supported.
+
+Although you can batch the usernames and sites queried, we recommend
+doing them one at a time so you can progressively load the results.
+
+We are open to PRs adding other arguments (e.g. proxies) that sherlock supports.
 
 Output:
 ```
@@ -55,7 +60,3 @@ We strip the full `response_text` because YAGNI.
 Each and every contribution is greatly valued!
 
 But if you love Sherlock, it's even better if you contribute to [their repo](https://github.com/sherlock-project/sherlock).
-
-## TODO
-
-* Rename repo
