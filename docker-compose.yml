@@ -5,3 +5,7 @@ services:
     build: .
     volumes:
       - "./results:/opt/sherlock/results"
+    # It's generally recommended to run migrations outside the
+    # Docker build process, because the build should be environment-agnostic.
+    # But we do it anyway because it's simpler
+    #command: ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]

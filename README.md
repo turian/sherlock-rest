@@ -178,3 +178,10 @@ list of sites to ignore (one site name per line).
 
 MIT © Sherlock Project<br/>
 Original Creator - [Siddharth Dushantha](https://github.com/sdushantha)
+
+
+
+docker build -t mysherlock-rest-image .
+
+docker run -p 8000:8000 --rm -t mysherlock-rest-image
+

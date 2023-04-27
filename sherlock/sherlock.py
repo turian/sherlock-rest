@@ -8,27 +8,33 @@ networks.
 """
 
 import csv
-import signal
-import pandas as pd
+import json
 import os
 import platform
 import re
+import signal
 import sys
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 from time import monotonic
 
+import colorama
+import pandas as pd
 import requests
-
+from colorama import Fore, Style, init
 from requests_futures.sessions import FuturesSession
+from sherlock.sites import SitesInformation
 from torrequest import TorRequest
-from result import QueryStatus
-from result import QueryResult
-from notify import QueryNotifyPrint
-from sites import SitesInformation
-from colorama import init
+
+#from sherlock.sherlock import (CheckForParameter, MultipleUsernames, QueryNotifyPrint,
+#                      QueryStatus, handler, sherlock)
+from sherlock.notify import QueryNotifyPrint
+from sherlock.result import QueryResult, QueryStatus
 
 module_name = "Sherlock: Find Usernames Across Social Networks"
 __version__ = "0.14.3"
+
+#__version__ = sherlock_version.__version__
+#module_name = str(sys.argv[0])
 
 
 class SherlockFuturesSession(FuturesSession):
@@ -483,7 +489,9 @@ def handler(signal_received, frame):
     sys.exit(0)
 
 
-def main():
+def run_sherlock(arguments):
+    final_results = [] 
+
     version_string = f"%(prog)s {__version__}\n" + \
                      f"{requests.__description__}:  {requests.__version__}\n" + \
                      f"Python:  {platform.python_version()}"
@@ -565,7 +573,7 @@ def main():
                         action="store_true", default=False,
                         help="Include checking of NSFW sites from default list.")
 
-    args = parser.parse_args()
+    args = parser.parse_args(arguments)
 
     # If the user presses CTRL-C, exit gracefully without throwing errors
     signal.signal(signal.SIGINT, handler)
@@ -766,9 +774,17 @@ def main():
             DataFrame = pd.DataFrame({"username": usernames, "name": names, "url_main": url_main, "url_user": url_user, "exists": exists, "http_status": http_status, "response_time_s": response_time_s})
             DataFrame.to_excel(f'{username}.xlsx', sheet_name='sheet1', index=False)
 
-        print()
-    query_notify.finish()
+        user_result = {"username": username, "results": results}
+        final_results.append(user_result)
+        #print()
+        pass
 
+    query_notify.finish()
+    return final_results
+
+def main():
+    # Call the run_sherlock(arguments) function with sys.argv[1:]
+    results = run_sherlock(sys.argv[1:])
 
 if __name__ == "__main__":
     main()
