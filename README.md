@@ -2,7 +2,7 @@
 
 A Django JSON REST API for [Sherlock 1.4.3](https://github.com/sherlock-project/sherlock).
 
-<a href="https://render.com/deploy?repo=https://github.com/turian/sherlock-django">
+<a href="https://render.com/deploy?repo=https://github.com/turian/sherlock-django.git">
 <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render" />
 </a>
 
@@ -58,5 +58,4 @@ But if you love Sherlock, it's even better if you contribute to [their repo](htt
 
 ## TODO
 
-* Remove Django DB cruft
 * Rename repo
