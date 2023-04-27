@@ -11,3 +11,4 @@ exrex>=0.11.0
 
 Django>=3.2.10
 djangorestframework>=3.13.0
+python-dotenv

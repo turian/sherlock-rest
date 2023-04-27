@@ -39,16 +39,15 @@ COPY . /opt/sherlock/
 # Move sherlock files into the Django project
 RUN mv /opt/sherlock/sherlock /opt/sherlock/sherlock_rest_service
 
-# However, it's generally recommended to run migrations outside the
-# Docker build process, because the build should be environment-agnostic.
-# Instead, you can run the migration as a separate step when deploying
-# the container. For example, you can add the following line in your
-# docker-compose.yml file under the command section:
-# command: ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
-RUN cd /opt/sherlock/sherlock_rest_service && python3 manage.py migrate
 
 # Expose port for Django server
 EXPOSE 8000
 
-# Start Django server
-CMD ["python", "/opt/sherlock/sherlock_rest_service/manage.py", "runserver", "0.0.0.0:8000"]
+# Copy entrypoint script
+COPY entrypoint.sh /opt/sherlock/
+
+# Set entrypoint
+ENTRYPOINT ["/opt/sherlock/entrypoint.sh"]
+
+## Start Django server
+#CMD DJANGO_SECRET_KEY=$DJANGO_SECRET_KEY DJANGO_DEBUG=$DJANGO_DEBUG python manage.py runserver 0.0.0.0:8000

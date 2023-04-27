@@ -87,15 +87,3 @@ class QueryResult():
             status += f" ({self.context})"
 
         return status
-
-    """
-    def to_dict(self):
-        return {
-            "username": self.username,
-            "site_name": self.site_name,
-            "site_url_user": self.site_url_user,
-            "status": str(self.status),
-            "query_time": self.query_time,
-            #"context": self.context
-        }
-    """

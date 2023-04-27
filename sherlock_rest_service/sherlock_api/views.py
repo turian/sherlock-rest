@@ -1,10 +1,11 @@
-from django.http import JsonResponse
-from sherlock import run_sherlock
+import json
+
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-import json
+
 from sherlock import run_sherlock
 from sherlock.result import QueryResult
+
 
 def prepare_arguments(data, args_with_defaults):
     arguments = []
