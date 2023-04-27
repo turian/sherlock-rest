@@ -8,7 +8,10 @@ A Django JSON REST API for [Sherlock 1.4.3](https://github.com/sherlock-project/
 
 ## Motivation
 
-We wrote this because [sherlock-project/api](https://github.com/sherlock-project/api) is full of gaping security holes.
+We wrote this because [sherlock-project/api](https://github.com/sherlock-project/api) is full of gaping security holes:
+* not sanitizing input to subprocess
+* hard-coding the DJANGO_SECRET_KEY and never retrieving it from the environment
+With that said, this API does no authentication and is open.
 
 We had to make a few minor changes to `sherlock` to get it to work
 through Django:
@@ -41,9 +44,19 @@ curl -X POST -H "Content-Type: application/json" -d '{"usernames": ["user1", "us
 
 Those are the only parameters supported. We are open to PRs adding other arguments (e.g. proxies) that sherlock supports.
 
+Output:
+```
+{"result": [{"username": "user1", "results": {"Reddit": {"url_main": "https://www.reddit.com/", "url_user": "https://www.reddit.com/user/user1", "status": "Claimed", "http_status": 200}, "Twitter": {"url_main": "https://twitter.com/", "url_user": "https://twitter.com/user1", "status": "Claimed", "http_status": 200}}}, {"username": "user2", "results": {"Reddit": {"url_main": "https://www.reddit.com/", "url_user": "https://www.reddit.com/user/user2", "status": "Claimed", "http_status": 200}, "Twitter": {"url_main": "https://twitter.com/", "url_user": "https://twitter.com/user2", "status": "Claimed", "http_status": 200}}}]}⏎
+```
+We strip the full `response_text` because YAGNI.
+
 ## Contributing
 
 Each and every contribution is greatly valued!
 
 But if you love Sherlock, it's even better if you contribute to [their repo](https://github.com/sherlock-project/sherlock).
 
+## TODO
+
+* Remove Django DB cruft
+* Rename repo
