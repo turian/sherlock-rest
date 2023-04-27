@@ -2,12 +2,19 @@
 
 A Django JSON REST API for [Sherlock 1.4.3](https://github.com/sherlock-project/sherlock).
 
+## Deploy to Render for Free
+
 <a href="https://render.com/deploy?repo=https://github.com/turian/sherlock-rest.git">
 <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render" />
 </a>
 
-(Note that the Render deploy is pure python, because I couldn't
-figure out how to get the `render.yaml.Docker` version to work.)
+Note that the Render deploy is pure python, because I couldn't
+figure out how to get the `render.yaml.Docker` version to work.
+
+Usage:
+```
+curl -X POST -H "Content-Type: application/json" -d '{"usernames": ["user1", "user2"], "site": ["reddit", "twitter"]}' https://your-render-host.onrender.com/api/v1/sherlock/
+```
 
 ## Motivation
 
