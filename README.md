@@ -2,6 +2,12 @@
 
 A Django JSON REST API for [Sherlock 1.4.3](https://github.com/sherlock-project/sherlock).
 
+<a href="https://render.com/deploy?repo=https://github.com/turian/sherlock-django">
+<img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render" />
+</a>
+
+## Motivation
+
 We wrote this because [sherlock-project/api](https://github.com/sherlock-project/api) is full of gaping security holes.
 
 We had to make a few minor changes to `sherlock` to get it to work
