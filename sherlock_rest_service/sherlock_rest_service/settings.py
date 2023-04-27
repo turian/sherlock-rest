@@ -25,8 +25,7 @@ load_dotenv()
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 if not SECRET_KEY:
-    print(os.environ)
-    raise ValueError("DJANGO_SECRET_KEY environment variable is not set. Run ./create_debug_env.py for local development.")
+    raise ValueError("DJANGO_SECRET_KEY environment variable is not set.")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', 'False').lower() == 'true'
