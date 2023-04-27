@@ -1,6 +1,6 @@
 # sherlock-django
 
-A JSON REST API for [Sherlock 1.4.3](https://github.com/sherlock-project/sherlock).
+A Django JSON REST API for [Sherlock 1.4.3](https://github.com/sherlock-project/sherlock).
 
 We wrote this because [sherlock-project/api](https://github.com/sherlock-project/api) is full of gaping security holes.
 
@@ -10,7 +10,7 @@ through Django:
 the functionality of `sherlock.sherlock.main`, which `sherlock.sherlock.main` now calls. (non-intrusive change)
 * Disabling the use of `signals` in `sherlock.sherlock`, which allowed the user to gracefully Ctrl-C in an interactive environment. (an intrusive change which could be made optional)
 If there is interest, we could push the changes upstream to `sherlock`
-as options.
+as options. We also wouldn't mind optionally disabling the super chatty colarama output of sherlock in the server logs.
 
 ## Testing locally
 
