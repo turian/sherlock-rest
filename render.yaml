@@ -4,7 +4,7 @@ services:
   env: python
   plan: starter
   buildCommand: pip3 install -r requirements.txt
-  startCommand: gunicorn sherlock_rest_service.wsgi:application
+  startCommand: cd sherlock_rest_service && gunicorn sherlock_rest_service.wsgi:application
 #  autoDeploy: false
   envVars:
     - key: WEB_CONCURRENCY
