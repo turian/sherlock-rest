@@ -28,6 +28,7 @@ WORKDIR /opt/sherlock
 
 # Install dependencies
 COPY --from=build /wheels /wheels
+COPY requirements.txt /opt/sherlock
 RUN pip3 install --upgrade pip
 RUN pip3 install --no-cache-dir -r requirements.txt -f /wheels \
   && rm -rf /wheels
