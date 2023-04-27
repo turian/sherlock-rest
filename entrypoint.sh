@@ -2,7 +2,6 @@
 
 export DJANGO_SECRET_KEY=$DJANGO_SECRET_KEY
 export DJANGO_DEBUG=$DJANGO_DEBUG
-export ALLOWED_HOSTS=$ALLOWED_HOSTS
 
 cd /opt/sherlock/sherlock_rest_service
 
