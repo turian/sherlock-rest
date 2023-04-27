@@ -12,7 +12,7 @@ import json
 import os
 import platform
 import re
-import signal
+#import signal
 import sys
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 from time import monotonic
@@ -481,12 +481,12 @@ def timeout_check(value):
     return timeout
 
 
-def handler(signal_received, frame):
-    """Exit gracefully without throwing errors
-
-    Source: https://www.devdungeon.com/content/python-catch-sigint-ctrl-c
-    """
-    sys.exit(0)
+#def handler(signal_received, frame):
+#    """Exit gracefully without throwing errors
+#
+#    Source: https://www.devdungeon.com/content/python-catch-sigint-ctrl-c
+#    """
+#    sys.exit(0)
 
 
 def run_sherlock(arguments):
@@ -575,8 +575,8 @@ def run_sherlock(arguments):
 
     args = parser.parse_args(arguments)
 
-    # If the user presses CTRL-C, exit gracefully without throwing errors
-    signal.signal(signal.SIGINT, handler)
+    ## If the user presses CTRL-C, exit gracefully without throwing errors
+    #signal.signal(signal.SIGINT, handler)
 
     # Check for newer version of Sherlock. If it exists, let the user know about it
     try:

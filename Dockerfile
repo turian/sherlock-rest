@@ -21,18 +21,19 @@ ENV DJANGO_ENV dev
 ENV VCS_REF ""
 ENV VCS_URL "https://github.com/sherlock-project/sherlock"
 
+# Copy wheels and app files
+COPY --from=build /wheels /wheels
 # Set working directory
 WORKDIR /opt/sherlock
 
-# Copy wheels and app files
-COPY --from=build /wheels /wheels
-COPY . /opt/sherlock/
-
-RUN pip3 install --upgrade pip
-
 # Install dependencies
+COPY --from=build /wheels /wheels
+RUN pip3 install --upgrade pip
 RUN pip3 install --no-cache-dir -r requirements.txt -f /wheels \
   && rm -rf /wheels
+
+# Copy app files
+COPY . /opt/sherlock/
 
 # Move sherlock files into the Django project
 RUN mv /opt/sherlock/sherlock /opt/sherlock/sherlock_rest_service
