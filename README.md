@@ -6,6 +6,9 @@ A Django JSON REST API for [Sherlock 1.4.3](https://github.com/sherlock-project/
 <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render" />
 </a>
 
+(Note that the Render deploy is pure python, because I couldn't
+figure out how to get the `render.yaml.Docker` version to work.)
+
 ## Motivation
 
 We wrote this because [sherlock-project/api](https://github.com/sherlock-project/api) is full of gaping security holes:

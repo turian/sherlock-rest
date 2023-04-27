@@ -5,6 +5,6 @@ export DJANGO_DEBUG=$DJANGO_DEBUG
 
 cd /opt/sherlock/sherlock_rest_service
 
-#exec python manage.py runserver 0.0.0.0:8000
-exec gunicorn sherlock_rest_service.wsgi:application --bind 0.0.0.0:8000 --workers 3
+exec python manage.py runserver 0.0.0.0:8000
+#exec gunicorn sherlock_rest_service.wsgi:application --bind 0.0.0.0:8000 --workers 3
 

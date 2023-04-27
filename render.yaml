@@ -1,13 +1,14 @@
 services:
-  - type: web
-    name: sherlock-rest
-    env: docker
-    dockerfilePath: Dockerfile
-    plan: free
-    envVars:
-      - key: DJANGO_SECRET_KEY
-        generateValue: true
-      - key: DJANGO_DEBUG
-        value: "False"
-      - key: ALLOWED_HOSTS
-        value: ".onrender.com"
+- type: web
+  name: sherlock-rest-nodocker
+  env: python
+#  plan: starter
+  plan: free
+  buildCommand: pip3 install -r requirements.txt
+  startCommand: sh -c 'cd sherlock_rest_service && gunicorn sherlock_rest_service.wsgi:application'
+#  autoDeploy: false
+  envVars:
+    - key: WEB_CONCURRENCY
+      value: 4
+    - key: DJANGO_SECRET_KEY
+      generateValue: true
