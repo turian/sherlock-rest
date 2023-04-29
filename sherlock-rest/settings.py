@@ -16,13 +16,15 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+SECRET_KEY ="w90e-tu39408fjkoi0qj209ur0-qvjwi0jf2389-iq-9wf9jq0j"
+# SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 if not SECRET_KEY:
     raise ValueError("DJANGO_SECRET_KEY environment variable is not set.")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', 'False').lower() == 'true'
+DEBUG = True
+# DEBUG = os.environ.get('DJANGO_DEBUG', 'False').lower() == 'true'
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []

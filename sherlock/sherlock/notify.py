@@ -3,9 +3,10 @@
 This module defines the objects for notifying the caller about the
 results of queries.
 """
-from sherlock.result import QueryStatus
-from colorama import Fore, Style
 import webbrowser
+
+from colorama import Fore, Style
+from result import QueryStatus
 
 # Global variable to count the number of results.
 globvar = 0
@@ -139,32 +140,6 @@ class QueryNotifyPrint(QueryNotify):
 
         return
 
-    def start(self, message):
-        """Notify Start.
-
-        Will print the title to the standard output.
-
-        Keyword Arguments:
-        self                   -- This object.
-        message                -- String containing username that the series
-                                  of queries are about.
-
-        Return Value:
-        Nothing.
-        """
-
-        title = "Checking username"
-
-        print(Style.BRIGHT + Fore.GREEN + "[" +
-              Fore.YELLOW + "*" +
-              Fore.GREEN + f"] {title}" +
-              Fore.WHITE + f" {message}" +
-              Fore.GREEN + " on:")
-        # An empty line between first line and the result(more clear output)
-        print('\r')
-
-        return
-
     def countResults(self):
         """This function counts the number of results. Every time the function is called,
         the number of results is increasing.
@@ -201,43 +176,74 @@ class QueryNotifyPrint(QueryNotify):
         # Output to the terminal is desired.
         if result.status == QueryStatus.CLAIMED:
             self.countResults()
-            print(Style.BRIGHT + Fore.WHITE + "[" +
-                  Fore.GREEN + "+" +
-                  Fore.WHITE + "]" +
-                  response_time_text +
-                  Fore.GREEN +
-                  f" {self.result.site_name}: " +
-                  Style.RESET_ALL +
-                  f"{self.result.site_url_user}")
+            print(
+                Style.BRIGHT
+                + Fore.WHITE
+                + "["
+                + Fore.GREEN
+                + "+"
+                + Fore.WHITE
+                + "]"
+                + response_time_text
+                + Fore.GREEN
+                + f" {self.result.site_name}: "
+                + Style.RESET_ALL
+                + f"{self.result.site_url_user}"
+            )
             if self.browse:
                 webbrowser.open(self.result.site_url_user, 2)
 
         elif result.status == QueryStatus.AVAILABLE:
             if self.print_all:
-                print(Style.BRIGHT + Fore.WHITE + "[" +
-                      Fore.RED + "-" +
-                      Fore.WHITE + "]" +
-                      response_time_text +
-                      Fore.GREEN + f" {self.result.site_name}:" +
-                      Fore.YELLOW + " Not Found!")
+                print(
+                    Style.BRIGHT
+                    + Fore.WHITE
+                    + "["
+                    + Fore.RED
+                    + "-"
+                    + Fore.WHITE
+                    + "]"
+                    + response_time_text
+                    + Fore.GREEN
+                    + f" {self.result.site_name}:"
+                    + Fore.YELLOW
+                    + " Not Found!"
+                )
 
         elif result.status == QueryStatus.UNKNOWN:
             if self.print_all:
-                print(Style.BRIGHT + Fore.WHITE + "[" +
-                      Fore.RED + "-" +
-                      Fore.WHITE + "]" +
-                      Fore.GREEN + f" {self.result.site_name}:" +
-                      Fore.RED + f" {self.result.context}" +
-                      Fore.YELLOW + " ")
+                print(
+                    Style.BRIGHT
+                    + Fore.WHITE
+                    + "["
+                    + Fore.RED
+                    + "-"
+                    + Fore.WHITE
+                    + "]"
+                    + Fore.GREEN
+                    + f" {self.result.site_name}:"
+                    + Fore.RED
+                    + f" {self.result.context}"
+                    + Fore.YELLOW
+                    + " "
+                )
 
         elif result.status == QueryStatus.ILLEGAL:
             if self.print_all:
                 msg = "Illegal Username Format For This Site!"
-                print(Style.BRIGHT + Fore.WHITE + "[" +
-                      Fore.RED + "-" +
-                      Fore.WHITE + "]" +
-                      Fore.GREEN + f" {self.result.site_name}:" +
-                      Fore.YELLOW + f" {msg}")
+                print(
+                    Style.BRIGHT
+                    + Fore.WHITE
+                    + "["
+                    + Fore.RED
+                    + "-"
+                    + Fore.WHITE
+                    + "]"
+                    + Fore.GREEN
+                    + f" {self.result.site_name}:"
+                    + Fore.YELLOW
+                    + f" {msg}"
+                )
 
         else:
             # It should be impossible to ever get here...
@@ -246,24 +252,6 @@ class QueryNotifyPrint(QueryNotify):
             )
 
         return
-
-    def finish(self, message="The processing has been finished."):
-        """Notify Start.
-        Will print the last line to the standard output.
-        Keyword Arguments:
-        self                   -- This object.
-        message                -- The 2 last phrases.
-        Return Value:
-        Nothing.
-        """
-        NumberOfResults = self.countResults() - 1
-
-        print(Style.BRIGHT + Fore.GREEN + "[" +
-              Fore.YELLOW + "*" +
-              Fore.GREEN + "] Search completed with" +
-              Fore.WHITE + f" {NumberOfResults} " +
-              Fore.GREEN + "results" + Style.RESET_ALL
-              )
 
     def __str__(self):
         """Convert Object To String.

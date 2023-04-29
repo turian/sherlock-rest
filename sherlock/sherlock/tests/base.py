@@ -5,11 +5,12 @@ This module contains various utilities for running tests.
 import os
 import os.path
 import unittest
-import sherlock
-from result import QueryStatus
-from notify import QueryNotify
-from sites import SitesInformation
 import warnings
+
+import sherlock
+from notify import QueryNotify
+from result import QueryStatus
+from sites import SitesInformation
 
 
 class SherlockBaseTest(unittest.TestCase):
@@ -30,7 +31,11 @@ class SherlockBaseTest(unittest.TestCase):
         warnings.simplefilter("ignore", ResourceWarning)
 
         # Create object with all information about sites we are aware of.
-        sites = SitesInformation(data_file_path=os.path.join(os.path.dirname(__file__), "../resources/data.json"))
+        sites = SitesInformation(
+            data_file_path=os.path.join(
+                os.path.dirname(__file__), "../resources/data.json"
+            )
+        )
 
         # Create original dictionary from SitesInformation() object.
         # Eventually, the rest of the code will be updated to use the new object
@@ -41,9 +46,14 @@ class SherlockBaseTest(unittest.TestCase):
         self.site_data_all = site_data_all
 
         # Load excluded sites list, if any
-        excluded_sites_path = os.path.join(os.path.dirname(os.path.realpath(sherlock.__file__)), "tests/.excluded_sites")
+        excluded_sites_path = os.path.join(
+            os.path.dirname(os.path.realpath(sherlock.__file__)),
+            "tests/.excluded_sites",
+        )
         try:
-            with open(excluded_sites_path, "r", encoding="utf-8") as excluded_sites_file:
+            with open(
+                excluded_sites_path, "r", encoding="utf-8"
+            ) as excluded_sites_file:
                 self.excluded_sites = excluded_sites_file.read().splitlines()
         except FileNotFoundError:
             self.excluded_sites = []
@@ -75,9 +85,9 @@ class SherlockBaseTest(unittest.TestCase):
         # an error.
         site_data = {}
         for site in site_list:
-            with self.subTest(f"Checking test vector Site '{site}' "
-                              f"exists in total site data."
-                             ):
+            with self.subTest(
+                f"Checking test vector Site '{site}' " f"exists in total site data."
+            ):
                 site_data[site] = self.site_data_all[site]
 
         return site_data
@@ -112,29 +122,30 @@ class SherlockBaseTest(unittest.TestCase):
             exist_result_desired = QueryStatus.AVAILABLE
 
         for username in username_list:
-            results = sherlock.sherlock(username,
-                                        site_data,
-                                        self.query_notify,
-                                        tor=self.tor,
-                                        unique_tor=self.unique_tor,
-                                        timeout=self.timeout
-                                       )
+            results = sherlock.sherlock(
+                username,
+                site_data,
+                self.query_notify,
+                tor=self.tor,
+                unique_tor=self.unique_tor,
+                timeout=self.timeout,
+            )
             for site, result in results.items():
-                with self.subTest(f"Checking Username '{username}' "
-                                  f"{check_type_text} on Site '{site}'"
-                                 ):
-                    if (
-                         (self.skip_error_sites == True) and
-                         (result["status"].status == QueryStatus.UNKNOWN)
-                       ):
-                        #Some error connecting to site.
-                        self.skipTest(f"Skipping Username '{username}' "
-                                      f"{check_type_text} on Site '{site}':  "
-                                      f"Site returned error status."
-                                     )
+                with self.subTest(
+                    f"Checking Username '{username}' "
+                    f"{check_type_text} on Site '{site}'"
+                ):
+                    if (self.skip_error_sites == True) and (
+                        result["status"].status == QueryStatus.UNKNOWN
+                    ):
+                        # Some error connecting to site.
+                        self.skipTest(
+                            f"Skipping Username '{username}' "
+                            f"{check_type_text} on Site '{site}':  "
+                            f"Site returned error status."
+                        )
 
-                    self.assertEqual(exist_result_desired,
-                                     result["status"].status)
+                    self.assertEqual(exist_result_desired, result["status"].status)
 
         return
 
@@ -166,11 +177,11 @@ class SherlockBaseTest(unittest.TestCase):
 
         for site, site_data in self.site_data_all.items():
             if (
-                 (site in self.excluded_sites)                 or
-                 (site_data["errorType"] != detect_type)       or
-                 (site_data.get("username_claimed")   is None) or
-                 (site_data.get("username_unclaimed") is None)
-               ):
+                (site in self.excluded_sites)
+                or (site_data["errorType"] != detect_type)
+                or (site_data.get("username_claimed") is None)
+                or (site_data.get("username_unclaimed") is None)
+            ):
                 # This is either not a site we are interested in, or the
                 # site does not contain the required information to do
                 # the tests.
@@ -193,10 +204,7 @@ class SherlockBaseTest(unittest.TestCase):
 
         # Check on the username availability against all of the sites.
         for username, site_list in sites_by_username.items():
-            self.username_check([username],
-                                site_list,
-                                exist_check=exist_check
-                               )
+            self.username_check([username], site_list, exist_check=exist_check)
 
         return
 

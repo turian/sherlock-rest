@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: sherlock-rest
+    env: docker
+    dockerfilePath: Dockerfile
+    plan: free
+    envVars:
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DJANGO_DEBUG
+        value: "False"
