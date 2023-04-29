@@ -34,6 +34,7 @@ def check_socialnetwork_availability(names):
     with open(output_file, "w") as f:
         json.dump(results, f, indent=4)
     print(time_taken)
+    return results
 
     # Alternative method, using sherlock's provided way of
     # running query on multiple names.
