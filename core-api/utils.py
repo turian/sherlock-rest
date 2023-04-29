@@ -4,34 +4,9 @@ import subprocess
 import sys
 import time
 
-import openai
-import whois
 from django.conf import settings
 
 BASE_DIR = settings.BASE_DIR
-
-
-def is_registered(domain_name):
-    """
-    A function that returns a boolean indicating
-    whether a `domain_name` is registered
-    """
-    try:
-        w = whois.whois(domain_name)
-    except Exception:
-        return False
-    else:
-        return bool(w.domain_name)
-
-
-def generate_names(prompt):
-    openai.api_key = settings.GPT_KEY
-    model_engine = "gpt-3.5-turbo"
-    completion = openai.ChatCompletion.create(
-        model=model_engine, messages=[{"role": "user", "content": prompt}]
-    )
-    response = completion.choices[0].message.content
-    return response
 
 
 def check_socialnetwork_availability(names):
@@ -44,7 +19,8 @@ def check_socialnetwork_availability(names):
     results = {}
 
     output_file = f"{names[0]}_name.json"
-    directory = os.path.join(BASE_DIR, "sherlock-conf/sherlock/sherlock.py")
+
+    directory = os.path.join(BASE_DIR, "sherlock/sherlock/sherlock.py")
     print(directory)
     for name in names:
         command = f"{sys.executable} {directory} {name} --print-found"

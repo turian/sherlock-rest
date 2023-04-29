@@ -124,7 +124,7 @@ class SitesInformation:
             # this instead of the local one is so that the user has the most up-to-date data. This prevents
             # users from creating issue about false positives which has already been fixed or having outdated data
             # data_file_path = "https://raw.githubusercontent.com/sherlock-project/sherlock/master/sherlock/resources/data.json"
-            # data_file_path = "/home/fidelity/handle/handlefinder/sherlock-conf/sherlock/resources/data.json"
+            # data_file_path = \sherlock\resources\data.json
             data_file_path = Path(BASE_DIR, "sherlock/resources/data.json")
         # Ensure that specified data file has correct extension.
         if not data_file_path.lower().endswith(".json"):
