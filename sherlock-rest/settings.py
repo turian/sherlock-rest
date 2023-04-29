@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,7 +24,7 @@ if not SECRET_KEY:
     raise ValueError("DJANGO_SECRET_KEY environment variable is not set.")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', 'False').lower() == 'True'
+DEBUG = os.environ.get('DEBUG')
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
@@ -40,7 +42,7 @@ INSTALLED_APPS = [
 #    "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "sherlock_api",
+    "core_api",
     "rest_framework",
 ]
 
@@ -54,7 +56,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "sherlock_rest_service.urls"
+ROOT_URLCONF = "sherlock-rest.urls"
 
 TEMPLATES = [
     {
@@ -72,7 +74,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "sherlock_rest_service.wsgi.application"
+WSGI_APPLICATION = "sherlock-rest.wsgi.application"
 
 
 # Database
