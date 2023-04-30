@@ -6,6 +6,8 @@ This is the raw data that will be used to search for usernames.
 import json
 import requests
 import secrets
+import os
+
 
 class SiteInformation:
     def __init__(self, name, url_home, url_username_format, username_claimed,
@@ -110,8 +112,10 @@ class SitesInformation:
             # The default data file is the live data.json which is in the GitHub repo. The reason why we are using
             # this instead of the local one is so that the user has the most up-to-date data. This prevents
             # users from creating issue about false positives which has already been fixed or having outdated data
-            data_file_path = "https://raw.githubusercontent.com/sherlock-project/sherlock/master/sherlock/resources/data.json"
-
+            # data_file_path = "https://raw.githubusercontent.com/sherlock-project/sherlock/master/sherlock/resources/data.json"
+            resources_dir = os.path.join(os.path.dirname(__file__), 'resources')
+            data_file_path = os.path.join(resources_dir, 'data.json')
+        
         # Ensure that specified data file has correct extension.
         if not data_file_path.lower().endswith(".json"):
             raise FileNotFoundError(f"Incorrect JSON file extension for data file '{data_file_path}'.")

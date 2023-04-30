@@ -33,7 +33,7 @@ def run_sherlock_api(request):
 
         # Prepare a list of arguments to pass to the run_sherlock function
         args_with_defaults = {
-            "site": ["reddit", "twitter"],
+            "site": '',
             "usernames": [],
         }
         arguments = prepare_arguments(data, args_with_defaults)
