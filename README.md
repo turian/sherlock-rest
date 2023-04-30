@@ -56,6 +56,10 @@ You can use postman to send this request and the request body would look somethi
 ```
 If the site entry is left empty ie `"site":[]` sherlock would return an api json response of result of all supported site for each user.
 
+Response example when it's run for an example username "USER":
+```
+{"result": [{"username": "user", "results": {"Twitter": {"url_main": "https://twitter.com/", "url_user": "https://twitter.com/user", "status": "Available", "http_status": 200}, "Youtube Channel": {"url_main": "https://www.youtube.com", "url_user": "https://www.youtube.com/c/user", "status": "Available", "http_status": 404}, "Facebook": {"url_main": "https://www.facebook.com/", "url_user": "https://www.facebook.com/user", "status": "Claimed", "http_status": 200}, "Youtube User": {"url_main": "https://www.youtube.com", "url_user": "https://www.youtube.com/user/user", "status": "Claimed", "http_status": 200}, "Linktree": {"url_main": "https://linktr.ee/", "url_user": "https://linktr.ee/user", "status": "Claimed", "http_status": 200}, "Reddit": {"url_main": "https://www.reddit.com/", "url_user": "https://www.reddit.com/user/user", "status": "Claimed", "http_status": 200}, "Telegram": {"url_main": "https://t.me/", "status": "Illegal", "url_user": "", "http_status": ""}, "Linkedin": {"url_main": "https://www.linkedin.com/", "url_user": "https://www.linkedin.com/in/user", "status": "Claimed", "http_status": 999}, "Instagram": {"url_main": "https://www.instagram.com/", "url_user": "https://www.instagram.com/user", "status": "Claimed", "http_status": 403}}}]}
+```
 
 
 ## Motivation
@@ -73,39 +77,11 @@ the functionality of `sherlock.sherlock.main`, which `sherlock.sherlock.main` no
 If there is interest, we could push the changes upstream to `sherlock`
 as options. We also wouldn't mind optionally disabling the super chatty colarama output of sherlock in the server logs.
 
-## Testing locally
-
-```
-# clone the repo
-git clone https://github.com/sherlock-project/sherlock.git
-
-# create a secret key
-export DJANGO_SECRET_KEY=`python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"`
-
-# build the docker image
-docker build -t mysherlock-rest-image .
-
-# run docker in debug mode
-docker run -p 8000:8000 --rm -t -e DJANGO_SECRET_KEY=$DJANGO_SECRET_KEY -e DJANGO_DEBUG=True mysherlock-rest-image
-```
-
-You can now query it as follows:
-```
-curl -X POST -H "Content-Type: application/json" -d '{"usernames": ["user1", "user2"], "site": ["reddit", "twitter"]}' http://localhost:8000/api/v1/sherlock/
-```
-
-Those are the only parameters supported.
-
-Although you can batch the usernames and sites queried, we recommend
-doing them one at a time so you can progressively load the results.
-
-We are open to PRs adding other arguments (e.g. proxies) that sherlock supports.
-
-Output:
-```
-{"result": [{"username": "user1", "results": {"Reddit": {"url_main": "https://www.reddit.com/", "url_user": "https://www.reddit.com/user/user1", "status": "Claimed", "http_status": 200}, "Twitter": {"url_main": "https://twitter.com/", "url_user": "https://twitter.com/user1", "status": "Claimed", "http_status": 200}}}, {"username": "user2", "results": {"Reddit": {"url_main": "https://www.reddit.com/", "url_user": "https://www.reddit.com/user/user2", "status": "Claimed", "http_status": 200}, "Twitter": {"url_main": "https://twitter.com/", "url_user": "https://twitter.com/user2", "status": "Claimed", "http_status": 200}}}]}⏎
-```
-We strip the full `response_text` because YAGNI.
+We also remove some functionalities that are'nt relevant to communicatin with sherlock as a rest api, and this include:
+- Removal of shelock auto creating a `.txt` file for each user a query is run on
+- Removal of folder based output (cascading folders on folder)
+- Removal of xml file creation output
+- Removal of using the shelock's remote data.json file to list supported files.
 
 ## Contributing
 
