@@ -58,11 +58,6 @@ If the site entry is left empty ie `"site":[]` sherlock would return an api json
 
 
 
-```
-curl -X POST -H "Content-Type: application/json" -d '{"usernames": ["user1", "user2"], "site": ["reddit", "twitter"]}' https://your-render-host.onrender.com/api/v1/sherlock/
-```
-
-
 ## Motivation
 
 We wrote this because [sherlock-project/api](https://github.com/sherlock-project/api) is full of gaping security holes:
