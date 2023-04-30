@@ -11,10 +11,57 @@ A Django JSON REST API for [Sherlock 1.4.3](https://github.com/sherlock-project/
 Note that the Render deploy is pure python, because I couldn't
 figure out how to get the `render.yaml.Docker` version to work.
 
-Usage:
+### Important to note:
+This version of sherlock rest api has added support for some sites sherlock innnitially 
+stop supporting and currently, this version only supports:
+- Facebook        - Twitter      - Instagram
+- Youtube Channel - Youtube User - Linktree
+- Reddit          - Telegram     -Linkedin
+
+In other to include more sites support, head over to the shelock's main directory at 
+https://raw.githubusercontent.com/sherlock-project/sherlock/master/sherlock/resources/data.json, 
+then search for any site you wish to support, copy the json entry for the site and include it in 
+the `data.json` file located at `sherlock/resource/data.json` in this project, and make the add. 
+An example json entry to support a site would look like this for `archive.org`:
+```
+"Archive.org": {
+    "errorMsg": "cannot find account",
+    "errorType": "message",
+    "url": "https://archive.org/details/@{}",
+    "urlMain": "https://archive.org",
+    "username_claimed": "blue"
+  }
+ ```
+
+To run or test this locally:
+After cloning the repository, navigate to base `sherlock rest` directory and open it up in the terminal
+
+1. Install all dependencies by running `pip install -r requirements.txt`
+2. Create a `.env` file in the root directory of the project, the same directory as the `manage.py` file in the project
+3. Include an entry for `DJANGO_SECRET_KEY` and `DEBUG` an example `.env` file would look like this:
+ ```
+ >> sherlock/.env
+ DJANGO_SECRET_KEY=w90e-tu39408fjkoi0qj209ur0-qvjwi0jf2389-iq-9wf9jq0j
+ DEBUG=True
+```
+4. Then, run `python manage.py runserver` to run the project locally.
+
+Allowed method for requesting connection with the API is by sending a post request to `localhost:8000/api/v1/sherlock/`.
+You can use postman to send this request and the request body would look something like this:
+```
+{
+    "usernames": ["user1", "exampleuser","username"], 
+    "site": ["facebook", "instagram", "linkedin"]
+} 
+```
+If the site entry is left empty ie `"site":[]` sherlock would return an api json response of result of all supported site for each user.
+
+
+
 ```
 curl -X POST -H "Content-Type: application/json" -d '{"usernames": ["user1", "user2"], "site": ["reddit", "twitter"]}' https://your-render-host.onrender.com/api/v1/sherlock/
 ```
+
 
 ## Motivation
 
