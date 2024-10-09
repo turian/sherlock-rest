@@ -1,5 +1,5 @@
 # Use Python 3.11 slim image as base
-FROM python:3.11-slim-bullseye as build
+FROM python:3.12.7-slim-bullseye as build
 
 # Set working directory
 WORKDIR /wheels
@@ -15,7 +15,7 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 # Use Python 3.11 slim image for runtime
-FROM python:3.11-slim-bullseye
+FROM python:3.12.7-slim-bullseye
 
 # Set environment variables
 ENV PYTHONUNBUFFERED 1
